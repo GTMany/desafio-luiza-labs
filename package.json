@@ -1,0 +1,26 @@
+{
+  "name": "desafio-luiza-labs",
+  "version": "1.0.0",
+  "description": "API rest para gerenciar os produtos favoritos dos clientes da Magazine Luiza",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GTMany/desafio-luiza-labs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GTMany/desafio-luiza-labs/issues"
+  },
+  "homepage": "https://github.com/GTMany/desafio-luiza-labs#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^7.18.1"
+  }
+}
