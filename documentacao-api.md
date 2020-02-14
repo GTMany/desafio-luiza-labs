@@ -28,6 +28,14 @@ Método HTTP: **`GET`**
 
 URL: `http://34.69.163.46/cliente?id_cliente={ID_DO_CLIENTE}`
 
+### Listar Clientes
+
+Método utilizado para listar os clientes cadastrados
+
+Método HTTP: **`GET`**
+
+URL: `http://34.69.163.46/cliente
+
 ### Adicionar Cliente
 
 URL: `http://34.69.163.46/cliente`

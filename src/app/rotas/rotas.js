@@ -28,31 +28,40 @@ module.exports = (app) => {
             })
             .catch(() => res.status(500).send('Login inválido!'));
       })
+      
+    app.get('/cliente',authentication.verifyJWT, (req,res) => {
+        clienteDao.buscaClientes(parseInt(req.query.page))
+        .then(results => {
+            res.send(results); 
+        })
+        .catch((err) => res.send({erro: err}));
+    });
     
-    app.route('/cliente')
-        .get(authentication.verifyJWT, (req,res) => {
-            
-            if(!req.query.id_cliente){
-                res.send({erro: 'id do cliente não informado.'})
-            }
-            
-            clienteDao.buscaPorId(parseInt(req.query.id_cliente))
-                .then(results => {
-                    res.send(results); 
-                })
-                .catch((err) => res.send({erro: err}));
-        })
-        .post(authentication.verifyJWT, (req, res) => {
-            clienteDao.adiciona(req.body)
-                .then((response) => res.send(response))
-                .catch(err => res.send({erro: err}));
-        })
-        .put(authentication.verifyJWT, (req, res) => {
+    app.get('/cliente/:id',authentication.verifyJWT, (req,res) => {  
+        if(!req.params.id){
+            res.send({erro: 'id do cliente não informado.'})
+        }
+        
+        clienteDao.buscaPorId(parseInt(req.params.id))
+            .then(results => {
+                res.send(results); 
+            })  
+        .catch((err) => res.send({erro: err}));
+    });
+        
+    app.post('/cliente', authentication.verifyJWT, (req, res) => {
+        clienteDao.adiciona(req.body)
+            .then((response) => res.send(response))
+            .catch(err => res.send({erro: err}));
+    });
+        
+    app.put('/cliente', authentication.verifyJWT, (req, res) => {
             clienteDao.atualiza(req.body)
             .then((response) => res.send(response))
             .catch(err => res.send({erro: err}));
-        })
-        .delete((req, res) => {
+        });
+        
+    app.delete('/cliente', (req, res) => {
             clienteDao.remove(parseInt(req.query.id_cliente))
                 .then((response) => res.send({msg: response}))
                 .catch(err => res.send({erro: err}));

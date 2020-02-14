@@ -20,8 +20,19 @@ class ClienteDao {
     }
     
     adiciona(cliente){
-        return new Promise((resolve, reject) => {
-            if(this.buscaPorEmail(cliente.email)){
+        return new Promise(async (resolve, reject) => {
+            
+            let clienteExiste = false;
+            await this.buscaPorEmail(cliente.email).
+                then((res)=> {
+                    if(res.length){
+                        clienteExiste = true;
+                    }
+                }).catch((err)=> reject(err));
+                
+            console.log(clienteExiste);
+                
+            if(clienteExiste){
                 return reject('Cliente já cadastrado.');
             }
             
@@ -36,15 +47,24 @@ class ClienteDao {
     }
     
     atualiza(cliente){      
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             
             if(!this.buscaPorId(cliente.id)){
                 return reject('Cliente não existe.');
             }
             
-            if(this.buscaPorEmail(cliente.email).id !== cliente.id){
-                return reject('Email já em uso.');
+            let clienteExiste = false;
+            await this.buscaPorEmail(cliente.email).
+                then((res)=> {
+                    if(res.length){
+                        clienteExiste = true;
+                    }
+                }).catch((err)=> reject(err));
+                
+            if(clienteExiste){
+                return reject('Cliente já cadastrado.');
             }
+            
             this._db.query('UPDATE cliente SET nome=$1, email=$2 WHERE id_cliente=$3', [cliente.nome, cliente.email, cliente.id], (error, result) => {
                 if(error){
                     return reject("Não foi possível atualizar o cliente");
@@ -61,6 +81,33 @@ class ClienteDao {
                 if(error){
                     console.log(error);
                     return reject("Não foi possível encontrar o cliente");
+                }
+                
+                resolve(results.rows);
+            });     
+        });
+    }
+    
+    buscaClientes(page){
+        return new Promise(async (resolve, reject) => {
+                
+            this._db.query("SELECT * FROM cliente", (error, results) => {
+                if(error){
+                    console.log(error);
+                    return reject("Não foi possível encontrar o cliente");
+                }
+                
+                resolve(results.rows);
+            });     
+        });
+    }
+    
+    countClientes(){
+        return new Promise(async (resolve, reject) => {
+            this._db.query("SELECT count(1) FROM cliente", (error, results) => {
+                if(error){
+                    console.log(error);
+                    return reject("Não foi possível calcular a quantidade de clientes");
                 }
                 
                 resolve(results.rows);
