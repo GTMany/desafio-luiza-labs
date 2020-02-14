@@ -9,14 +9,16 @@ Método HTTP: **`POST`**
 
 informar no corpo da requisição os seguintes campos:
 
-- `price`: preço do produto
-- `image`: URL da imagem do produto
+- `user`: nome do usuário
+- `pwd`: senha do usuário
 
 Ex:
 {
 	"user": "luiza",
 	"pwd": "123"
 }
+
+OBS: utilizar o usuário de exemplo para o teste.
 
 ## Cliente
 
