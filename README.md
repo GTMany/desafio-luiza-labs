@@ -1,7 +1,7 @@
 # Desafio-luiza-labs / Wishlist
 API rest para gerenciar os produtos favoritos dos clientes da Magazine Luiza.
 
-Esta api está aberta ao mundo e encontra-se [aqui](documentacao-api.md), porém, é necessário se autenticar para estar autorizado afim de consumi-las.
+Esta api está aberta ao mundo e encontra-se [aqui](http://34.69.163.46/), porém, é necessário se autenticar para estar autorizado afim de consumi-las.
 
 Clique [aqui](documentacao-api.md) para acessar a Documentação da API.
 
